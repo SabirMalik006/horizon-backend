@@ -14,10 +14,14 @@ router.post('/send', async (req, res) => {
   }
 
   try {
-    // Email to admin (sabirseoservices@gmail.com)
+    // Verified sender (Change kiya hai)
+    const verifiedSender = 'horizonintegratedsol@gmail.com';
+
+    // Email to admin (horizonintegratedsol@gmail.com)
     const adminMsg = {
-      to: 'sabirseoservices@gmail.com',
-      from: 'sabirseoservices@gmail.com', // Verified sender in SendGrid
+      to: 'horizonintegratedsol@gmail.com',
+      from: verifiedSender,
+      replyTo: email,
       subject: `New Contact Form: ${subject || 'General Inquiry'}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
@@ -44,7 +48,7 @@ router.post('/send', async (req, res) => {
     // Auto-reply to user
     const userMsg = {
       to: email,
-      from: 'sabirseoservices@gmail.com',
+      from: verifiedSender,
       subject: 'Thank you for contacting Horizon Integrated Solutions',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
@@ -80,7 +84,7 @@ router.post('/send', async (req, res) => {
     await sgMail.send(userMsg);
 
     console.log('\n========== EMAIL SENT SUCCESSFULLY VIA SENDGRID ==========');
-    console.log('To: sabirseoservices@gmail.com');
+    console.log('To: horizonintegratedsol@gmail.com');
     console.log('From:', email);
     console.log('Name:', name);
     console.log('================================================\n');
